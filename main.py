@@ -35,9 +35,9 @@ def percentCalculater(price, percentWant):
     return (price/100 * percentWant)
 
 #!!! vargobal
-basePrice = 1000000;
-bathGet = 10000;
-
+basePrice = 1000000
+bathGet = 10000
+fee = 0.25
 
 #!get wallet
 # wallet = bitkub.wallet()
@@ -115,5 +115,6 @@ for i in range(n):
         bathAllPrice[i][j] = bathGet+percentCalculater(bathGet, i+(j*0.1))
         display= display + (str("{:.1f}".format(bathAllPrice[i][j]))+'['+str("{:.1f}".format(i+(j*0.1)))+']'+", ")
     print(display)
-print ("ขายตอน 1% BTC "+str(allprice[1][0]-percentCalculater(allprice[1][0],0.5)))
+print ("ราคาตอนนี้ : "+str(basePrice))
+print ("ขายตอน 1% BTC "+str(allprice[1][0]+percentCalculater(allprice[1][0],0.5)))
 print ("ขายตอน 1% BATH "+str(bathAllPrice[1][0]-percentCalculater(bathAllPrice[1][0],0.5)))
