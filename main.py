@@ -1,9 +1,9 @@
 from bitkub import Bitkub
-import time 
+import time
 import datetime
 import math
 import json
-
+from array import *
 # TODO __init__.py this way to accase var folder
 #     root
 #         main.py <-- this file
@@ -14,62 +14,106 @@ import json
 #                 API_SECRET = 'UserSECERTKEYAPI'
 import var.configUserInfo as apiUser
 
-#TODO เทพยากรณ์
-#TODO สั่งศื้อ
+# TODO เทพยากรณ์
+# TODO สั่งศื้อ
 
 
-#!Connect BitKub 
+#!Connect BitKub
 API_KEY = apiUser.API_KEY
 API_SECRET = apiUser.API_SECRET
 bitkub = Bitkub(api_key=API_KEY, api_secret=API_SECRET)
 
-#user to format json data
-def json_formatted_str(open_order):
-    json_object = open_order 
-    return json.dumps(json_object, indent=2)
-#!percenCalculater
-def percentCalculater (price, percentWant):
-    return (price/100 *percentWant)
+# user to format json data
 
-#!get wallet 
-#wallet = bitkub.wallet()
-#print(wallet["result"]["BTC"])
+
+def json_formatted_str(open_order):
+    json_object = open_order
+    return json.dumps(json_object, indent=2)
+
+#!percenCalculater
+def percentCalculater(price, percentWant):
+    return (price/100 * percentWant)
+
+#!!! vargobal
+basePrice = 1000000;
+bathGet = 10000;
+
+
+#!get wallet
+# wallet = bitkub.wallet()
+# print(wallet["result"]["BTC"])
 
 #!get MyOrder Current
-#myorder =  bitkub.my_open_orders(sym='THB_BTC')
-#print (json_formatted_str(myorder))
-#for i in range(len(myorder)):
+# myorder =  bitkub.my_open_orders(sym='THB_BTC')
+# print (json_formatted_str(myorder))
+# for i in range(len(myorder)):
 #    print (myorder["result"][i]["side"])
 
 #!buyorder
-#byorder = bitkub.place_bid(sym='THB_BTC', amt=20, rat=1040000, typ='limit')
+# byorder = bitkub.place_bid(sym='THB_BTC', amt=20, rat=1040000, typ='limit')
+
+
+#!price
+# n = 10
+# allprice = [[0] * n for i in range(n)]
+
+# for i in range(n):
+#     display=str(i)+'%  '
+#     for j in range(n):
+#         #print(str()+str("{:.2f}".format(i+(j*0.1)))+" " +str(1030000+percentCalculater(1030000, i+(j*0.1))))
+#         allprice[i][j] = basePrice+percentCalculater(basePrice, i+(j*0.1))
+#         display= display + (str(allprice[i][j])+'['+str("{:.1f}".format(i+(j*0.1)))+']'+", ")
+#     print(display)
 
 
 
-#!percenCalculater
-for i in range (10):
-    for j in range (10):
-        print(str()+str("{:.2f}".format(i+(j*0.1)))+" "+str(1000000+percentCalculater(1000000,i+(j*0.1))))
-
+#TODO Main(){}
 # i = 0
 # while i == 0:
 #     myorder =  bitkub.my_open_orders(sym='THB_BTC')
 #     statusOfOrder = []
-    
+
 #     if myorder["error"] == 0 :
 #         print(len(myorder["result"]))
 #         for i in range(len(myorder["result"])):
 #             statusOfOrder.append(myorder["result"][i]["side"])
 #             print (statusOfOrder[i])
-    
-#     i = i+ 1 
+
+#     i = i+ 1
 #     statusOfOrder.clear()
 
-    
-        
+#basecoase of display
+# for row in allprice:
+#       print('   '.join([str(elem) for elem in row]))
+#       print(str(i)+'%  '+'   '.join([str(elem)+'['+str(j*0.1)+']' for elem in allprice[i]]))
+
+#!GetPriceFormBitkub
+CurrentPrice = bitkub.ticker(sym='THB_BTC')
+#print (CurrentPrice["THB_BTC"]["last"])
+basePrice = CurrentPrice["THB_BTC"]["last"];
 
 
- 
 
+#!!!MAIN
+print("-----START-----")
+n = 10
+allprice = [[0] * n for i in range(n)]
 
+for i in range(n):
+    display=""#str(i)+'%  '
+    for j in range(n):
+        #print(str()+str("{:.2f}".format(i+(j*0.1)))+" " +str(1030000+percentCalculater(1030000, i+(j*0.1))))
+        allprice[i][j] = basePrice+percentCalculater(basePrice, i+(j*0.1))
+        display= display + (str("{:.1f}".format(allprice[i][j]))+'['+str("{:.1f}".format(i+(j*0.1)))+']'+", ")
+    print(display)
 
+bathAllPrice = [[0] * n for i in range(n)]
+for i in range(n):
+    display=""#str(i)+'%  '
+    for j in range(n):
+        #print(str()+str("{:.2f}".format(i+(j*0.1)))+" " +str(1030000+percentCalculater(1030000, i+(j*0.1))))
+        bathAllPrice[i][j] = bathGet+percentCalculater(bathGet, i+(j*0.1))
+        display= display + (str("{:.1f}".format(bathAllPrice[i][j]))+'['+str("{:.1f}".format(i+(j*0.1)))+']'+", ")
+    print(display)
+print ("ขายตอน 1% BTC "+str(allprice[1][0]-percentCalculater(allprice[1][0],0.5)))
+print ("ขายตอน 1% BATH "+str(bathAllPrice[1][0]-percentCalculater(bathAllPrice[1][0],0.5)))
