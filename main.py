@@ -14,25 +14,30 @@ from array import *
 #                 API_SECRET = 'UserSECERTKEYAPI'
 import var.configUserInfo as apiUser
 
-# TODO เทพยากรณ์
-# TODO สั่งศื้อ
-
-
 #!Connect BitKub
 API_KEY = apiUser.API_KEY
 API_SECRET = apiUser.API_SECRET
 bitkub = Bitkub(api_key=API_KEY, api_secret=API_SECRET)
 
+#!
+coinType = "THB_DOGE"
+
+
+# TODO GET STATUS
+# TODO เทพยากรณ์
+# TODO สั่งศื้อ
+
+
 # user to format json data
-
-
 def json_formatted_str(open_order):
     json_object = open_order
     return json.dumps(json_object, indent=2)
 
+
+
 #!percenCalculater
 def percentCalculater(price, percentWant):
-    return (price/100 * percentWant)
+    return float(price/100 * percentWant)
 
 #!!! vargobal
 basePrice = 1000000
@@ -88,13 +93,17 @@ fee = 0.25
 #       print(str(i)+'%  '+'   '.join([str(elem)+'['+str(j*0.1)+']' for elem in allprice[i]]))
 
 #!GetPriceFormBitkub
-CurrentPrice = bitkub.ticker(sym='THB_BTC')
-#print (CurrentPrice["THB_BTC"]["last"])
-basePrice = CurrentPrice["THB_BTC"]["last"];
 
 
+print(bitkub.ticker(sym=coinType)[coinType]["last"])
+CurrentPrice = bitkub.ticker(sym=coinType)
+#print (CurrentPrice[coinType]["last"])
+basePrice = CurrentPrice[coinType]["last"];
 
-#!!!MAIN
+print(bitkub.ticker(sym='THB_DOGE')["THB_DOGE"]["last"])
+print(basePrice+percentCalculater(basePrice, 1.5))
+
+#!!!MAIN 
 print("-----START-----")
 n = 10
 allprice = [[0] * n for i in range(n)]
