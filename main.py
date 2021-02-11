@@ -5,13 +5,13 @@ import math
 import json
 from array import *
 # TODO __init__.py this way to accase var folder
-#     root
-#         main.py <-- this file
-#         var <-- folder
-#             > __init__.py //just create
-#             > configUserInfo.py // crate
-#                 API_KEY = 'UserKEYAPI'
-#                 API_SECRET = 'UserSECERTKEYAPI'
+    # root
+    #     main.py <-- this file
+    #     var <-- folder
+    #         > __init__.py //just create
+    #         > configUserInfo.py // crate
+    #             API_KEY = 'UserKEYAPI'
+    #             API_SECRET = 'UserSECERTKEYAPI'
 import var.configUserInfo as apiUser
 
 #!Connect BitKub
@@ -106,14 +106,14 @@ print(basePrice+percentCalculater(basePrice, 1.5))
 #!!!MAIN 
 print("-----START-----")
 n = 10
-allprice = [[0] * n for i in range(n)]
+allprice = [[0] * n for i in range(n)] 
 
 for i in range(n):
     display=""#str(i)+'%  '
     for j in range(n):
         #print(str()+str("{:.2f}".format(i+(j*0.1)))+" " +str(1030000+percentCalculater(1030000, i+(j*0.1))))
         allprice[i][j] = basePrice+percentCalculater(basePrice, i+(j*0.1))
-        display= display + (str("{:.1f}".format(allprice[i][j]))+'['+str("{:.1f}".format(i+(j*0.1)))+']'+", ")
+        display= display + (str("{:.3f}".format(allprice[i][j]))+'['+str("{:.1f}".format(i+(j*0.1)))+']'+", ")
     print(display)
 
 bathAllPrice = [[0] * n for i in range(n)]
@@ -122,7 +122,7 @@ for i in range(n):
     for j in range(n):
         #print(str()+str("{:.2f}".format(i+(j*0.1)))+" " +str(1030000+percentCalculater(1030000, i+(j*0.1))))
         bathAllPrice[i][j] = bathGet+percentCalculater(bathGet, i+(j*0.1))
-        display= display + (str("{:.1f}".format(bathAllPrice[i][j]))+'['+str("{:.1f}".format(i+(j*0.1)))+']'+", ")
+        display= display + (str("{:.2f}".format(bathAllPrice[i][j]))+'['+str("{:.1f}".format(i+(j*0.1)))+']'+", ")
     print(display)
 print ("ราคาตอนนี้ : "+str(basePrice))
 print ("ขายตอน 1% BTC "+str(allprice[1][0]+percentCalculater(allprice[1][0],0.5)))
